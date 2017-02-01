@@ -22,11 +22,9 @@ public class RateCalculator {
     private static HashMap<String, String> mToGBPRatesHashMap;
     private static HashMap<String, String> mToUSDRatesHashMap;
 
-    public static void prepareRateData() {
+    public static void prepareRateData(ArrayList<Rate> rates) {
         mToGBPRatesHashMap = new HashMap<>();
         mToUSDRatesHashMap = new HashMap<>();
-
-        ArrayList<Rate> rates = getRateData();
 
         if (rates != null) {
             for (Rate rate : rates) {
@@ -56,7 +54,7 @@ public class RateCalculator {
     public static String convertToGBP(String originalPrice,
                                       Currencies originalCurrency) {
         if (mToGBPRatesHashMap == null) {
-            prepareRateData();
+            prepareRateData(getRateData());
         }
 
         if (originalCurrency == null) {

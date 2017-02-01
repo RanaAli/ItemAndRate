@@ -19,12 +19,10 @@ public class TransactionIO {
 
     public static final String RES_RAW_TRANSACTIONS_JSON = "res/raw/transactions.json";
 
-    public static HashMap<String, ArrayList<Item>> prepareData() {
+    public static HashMap<String, ArrayList<Item>> prepareData(ArrayList<Item> items) {
         HashMap<String, ArrayList<Item>> keyHashMap = new HashMap<>();
 
-        ArrayList<Item> items = getItemsData();
-
-        if(items == null){
+        if (items == null) {
             return null;
         }
 
