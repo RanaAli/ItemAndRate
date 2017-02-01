@@ -2,7 +2,6 @@ package utils;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,21 +29,21 @@ public class RateCalculator {
 
         ArrayList<Rate> rates = getRateData(context);
 
-        for (Rate rate : rates) {
-            if (rate.getTo().equalsIgnoreCase(Currencies.GBP.getCode())) {
+        if (rates != null) {
+            for (Rate rate : rates) {
+                if (rate.getTo().equalsIgnoreCase(Currencies.GBP.getCode())) {
 
-                if (!mToGBPRatesHashMap.containsKey(rate.getFrom())) {
-                    mToGBPRatesHashMap.put(rate.getFrom(), rate.getRate());
-                }
-            } else if (rate.getTo().equalsIgnoreCase(Currencies.USD.getCode())) {
+                    if (!mToGBPRatesHashMap.containsKey(rate.getFrom())) {
+                        mToGBPRatesHashMap.put(rate.getFrom(), rate.getRate());
+                    }
+                } else if (rate.getTo().equalsIgnoreCase(Currencies.USD.getCode())) {
 
-                if (!mToUSDRatesHashMap.containsKey(rate.getFrom())) {
-                    mToUSDRatesHashMap.put(rate.getFrom(), rate.getRate());
+                    if (!mToUSDRatesHashMap.containsKey(rate.getFrom())) {
+                        mToUSDRatesHashMap.put(rate.getFrom(), rate.getRate());
+                    }
                 }
             }
         }
-        Log.v("RateCalculator", "RateHashMap " + mToGBPRatesHashMap.size());
-        Log.v("RateCalculator", "RateHashMap " + mToUSDRatesHashMap.size());
     }
 
     @Nullable

@@ -42,10 +42,13 @@ public class MainScreenPresenter {
         protected void onPostExecute(HashMap<String, ArrayList<Item>> stringArrayListHashMap) {
             super.onPostExecute(stringArrayListHashMap);
 
-            ItemListAdaptor itemListAdaptor = new ItemListAdaptor(stringArrayListHashMap);
-            itemListAdaptor.setListAdapterInterface(listAdapterInterface);
+            if (stringArrayListHashMap != null) {
+                ItemListAdaptor itemListAdaptor = new ItemListAdaptor(stringArrayListHashMap);
+                itemListAdaptor.setListAdapterInterface(listAdapterInterface);
 
-            mMainScreenView.populateList(itemListAdaptor);
+                mMainScreenView.populateList(itemListAdaptor);
+
+            }
 
             mMainScreenView.dismissProgress();
 

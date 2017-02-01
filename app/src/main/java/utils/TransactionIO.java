@@ -24,6 +24,10 @@ public class TransactionIO {
 
         ArrayList<Item> items = getItemsData(context);
 
+        if(items == null){
+            return null;
+        }
+
         for (Item item : items) {
             String sku = item.getSku();
 

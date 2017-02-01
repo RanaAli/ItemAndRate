@@ -15,6 +15,10 @@ public enum Currencies {
     }
 
     public static Currencies getCurrency(String code) {
+        if(code == null){
+            return null;
+        }
+
         if (code.equalsIgnoreCase(Constants.CODE_USD)) {
             return USD;
         } else if (code.equalsIgnoreCase(Constants.CODE_AUD)) {
