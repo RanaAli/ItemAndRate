@@ -1,11 +1,9 @@
 package utils;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ranaali.itemandrate.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +17,12 @@ import models.Item;
 
 public class TransactionIO {
 
-    public static HashMap<String, ArrayList<Item>> prepareData(Context context) {
+    public static final String RES_RAW_TRANSACTIONS_JSON = "res/raw/transactions.json";
+
+    public static HashMap<String, ArrayList<Item>> prepareData() {
         HashMap<String, ArrayList<Item>> keyHashMap = new HashMap<>();
 
-        ArrayList<Item> items = getItemsData(context);
+        ArrayList<Item> items = getItemsData();
 
         if(items == null){
             return null;
@@ -50,9 +50,9 @@ public class TransactionIO {
     }
 
     @Nullable
-    public static ArrayList<Item> getItemsData(Context context) {
+    public static ArrayList<Item> getItemsData() {
         Gson gson = new Gson();
-        return gson.fromJson(FileIO.readFile(context, R.raw.transactions),
+        return gson.fromJson(new FileIO().readFile(RES_RAW_TRANSACTIONS_JSON),
                 new TypeToken<List<Item>>() {
                 }.getType());
     }

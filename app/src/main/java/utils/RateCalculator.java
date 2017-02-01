@@ -1,11 +1,9 @@
 package utils;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ranaali.itemandrate.R;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,14 +18,15 @@ import models.Rate;
 
 public class RateCalculator {
 
+    public static String RES_RAW_RATES_JSON = "res/raw/rates.json";
     private static HashMap<String, String> mToGBPRatesHashMap;
     private static HashMap<String, String> mToUSDRatesHashMap;
 
-    public static void prepareRateData(Context context) {
+    public static void prepareRateData() {
         mToGBPRatesHashMap = new HashMap<>();
         mToUSDRatesHashMap = new HashMap<>();
 
-        ArrayList<Rate> rates = getRateData(context);
+        ArrayList<Rate> rates = getRateData();
 
         if (rates != null) {
             for (Rate rate : rates) {
@@ -47,17 +46,17 @@ public class RateCalculator {
     }
 
     @Nullable
-    public static ArrayList<Rate> getRateData(Context context) {
+    public static ArrayList<Rate> getRateData() {
         Gson gson = new Gson();
-        return gson.fromJson(FileIO.readFile(context, R.raw.rates),
+        return gson.fromJson(new FileIO().readFile(RES_RAW_RATES_JSON),
                 new TypeToken<List<Rate>>() {
                 }.getType());
     }
 
-    public static String convertToGBP(Context context, String originalPrice,
+    public static String convertToGBP(String originalPrice,
                                       Currencies originalCurrency) {
         if (mToGBPRatesHashMap == null) {
-            prepareRateData(context);
+            prepareRateData();
         }
 
         if (originalCurrency == null) {

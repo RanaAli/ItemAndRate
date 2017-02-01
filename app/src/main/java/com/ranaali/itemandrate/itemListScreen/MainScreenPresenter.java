@@ -35,7 +35,7 @@ public class MainScreenPresenter {
 
         @Override
         protected HashMap<String, ArrayList<Item>> doInBackground(Void... voidss) {
-            return TransactionIO.prepareData(mMainScreenView.getContext());
+            return TransactionIO.prepareData();
         }
 
         @Override

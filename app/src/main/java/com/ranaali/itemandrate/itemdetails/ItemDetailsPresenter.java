@@ -26,7 +26,6 @@ public class ItemDetailsPresenter {
         for (Item item : items) {
 
             String priceInGBP = RateCalculator.convertToGBP(
-                    mItemDetailsView.getContext(),
                     item.getAmount(),
                     Currencies.getCurrency(item.getCurrency()));
 

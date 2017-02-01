@@ -14,17 +14,17 @@ public class Item {
 
     @SerializedName("amount")
     @Expose
-    private String amount;
+    protected String amount;
 
-    private String amountGBP;
+    protected String amountGBP;
 
     @SerializedName("sku")
     @Expose
-    private String sku;
+    protected String sku;
 
     @SerializedName("currency")
     @Expose
-    private String currency;
+    protected String currency;
 
     public String getAmount() {
         return amount;

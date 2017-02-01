@@ -1,7 +1,5 @@
 package utils;
 
-import android.content.Context;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,26 +10,29 @@ import java.io.InputStream;
 
 public class FileIO {
 
-    public static String readFile(Context context, int fileResource) {
-        InputStream inputStream = context.getResources().openRawResource(fileResource);
+    public String readFile(String fileName) {
 
-        System.out.println(inputStream);
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        int i;
         try {
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+
+            System.out.println(inputStream);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            int i;
+
             i = inputStream.read();
             while (i != -1) {
                 byteArrayOutputStream.write(i);
                 i = inputStream.read();
             }
             inputStream.close();
+
+            return byteArrayOutputStream.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return byteArrayOutputStream.toString();
-
+        return null;
     }
 }
