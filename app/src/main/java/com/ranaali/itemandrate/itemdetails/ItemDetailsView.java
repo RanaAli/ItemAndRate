@@ -1,10 +1,11 @@
-package com.ranaali.itemandrate.itemListScreen;
+package com.ranaali.itemandrate.itemdetails;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ranaali.itemandrate.R;
 
@@ -15,18 +16,21 @@ import butterknife.ButterKnife;
  * Created by Rana Ahsan Ali on 2/1/2017.
  */
 
-public class MainScreenView {
+public class ItemDetailsView {
     private View mView;
 
-    @BindView(R.id.mainListRecycleView)
+    @BindView(R.id.detailsListRecycleView)
     protected RecyclerView mRecyclerView;
 
-    @BindView(R.id.mainScreenProgressRelativeLayout)
+    @BindView(R.id.detailsProgressRelativeLayout)
     protected RelativeLayout mProgressLayout;
+
+    @BindView(R.id.detailsListTotalTextView)
+    protected TextView detailsListTotalTextView;
 
     private LinearLayoutManager mLinearLayoutManager;
 
-    MainScreenView(View mView) {
+    public ItemDetailsView(View mView) {
         this.mView = mView;
 
         ButterKnife.bind(this, mView);
@@ -41,8 +45,12 @@ public class MainScreenView {
 
     }
 
-    public void populateList(ItemListAdaptor listAdaptor) {
-        mRecyclerView.setAdapter(listAdaptor);
+    public void populateList(ItemDetailAdaptor itemDetailAdaptor) {
+        mRecyclerView.setAdapter(itemDetailAdaptor);
+    }
+
+    public void setTotalAmount(String totalAmount){
+        detailsListTotalTextView.setText(totalAmount);
     }
 
     public Context getContext() {
@@ -56,5 +64,4 @@ public class MainScreenView {
     public void dismissProgress() {
         mProgressLayout.setVisibility(View.GONE);
     }
-
 }

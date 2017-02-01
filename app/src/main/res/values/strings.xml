@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ItemAndRate</string>
     <string name="transactions">Transactions</string>
+    <string name="total">Total</string>
 </resources>

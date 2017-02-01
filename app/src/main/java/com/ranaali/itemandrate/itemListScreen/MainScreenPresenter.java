@@ -1,5 +1,7 @@
 package com.ranaali.itemandrate.itemListScreen;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,19 +14,61 @@ import utils.TransactionIO;
 
 public class MainScreenPresenter {
 
-    MainScreenView mMainScreenView;
+    private MainScreenView mMainScreenView;
+
+    private MainScreenPresenterInterface mMainScreenPresenterInterface;
 
     public MainScreenPresenter(MainScreenView mMainScreenView) {
         this.mMainScreenView = mMainScreenView;
 
-        HashMap<String, ArrayList<Item>> keyHashMap = TransactionIO.prepareData(
-                mMainScreenView.getContext());
-
-        ItemListAdaptor itemListAdaptor = new ItemListAdaptor(keyHashMap);
-
-        mMainScreenView.populateList(itemListAdaptor);
-
+        new PrepareDataTask().execute();
     }
 
+    private class PrepareDataTask extends AsyncTask<Void, Void, HashMap<String, ArrayList<Item>>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mMainScreenView.showProgress();
+        }
+
+        @Override
+        protected HashMap<String, ArrayList<Item>> doInBackground(Void... voidss) {
+            return TransactionIO.prepareData(mMainScreenView.getContext());
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, ArrayList<Item>> stringArrayListHashMap) {
+            super.onPostExecute(stringArrayListHashMap);
+
+            ItemListAdaptor itemListAdaptor = new ItemListAdaptor(stringArrayListHashMap);
+            itemListAdaptor.setListAdapterInterface(listAdapterInterface);
+
+            mMainScreenView.populateList(itemListAdaptor);
+
+            mMainScreenView.dismissProgress();
+
+        }
+    }
+
+    private ItemListAdaptor.ListAdapterInterface
+            listAdapterInterface = new ItemListAdaptor.ListAdapterInterface() {
+        @Override
+        public void onItemClicked(ArrayList<Item> items) {
+            if (mMainScreenPresenterInterface != null) {
+                mMainScreenPresenterInterface.onItemClicked(items);
+            }
+        }
+    };
+
+    public void setMainScreenPresenterInterface(
+            MainScreenPresenterInterface mainScreenPresenterInterface) {
+        mMainScreenPresenterInterface = mainScreenPresenterInterface;
+    }
+
+    public interface MainScreenPresenterInterface {
+        void onItemClicked(ArrayList<Item> items);
+    }
 
 }

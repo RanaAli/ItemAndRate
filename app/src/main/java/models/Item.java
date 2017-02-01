@@ -3,15 +3,20 @@ package models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Rana Ahsan Ali on 2/1/2017.
  */
 
+@Parcel
 public class Item {
 
     @SerializedName("amount")
     @Expose
     private String amount;
+
+    private String amountGBP;
 
     @SerializedName("sku")
     @Expose
@@ -45,4 +50,11 @@ public class Item {
         this.currency = currency;
     }
 
+    public String getAmountGBP() {
+        return amountGBP;
+    }
+
+    public void setAmountGBP(String amountGBP) {
+        this.amountGBP = amountGBP;
+    }
 }
